@@ -1,0 +1,39 @@
+<html>
+
+<head>
+</head>
+
+<body>
+<textarea name="message" id="js-message" cols="30" rows="10" maxLength="140"></textarea>
+<p>Symbols total: <b id="js-message-left-total">0</b>, left: <b id="js-message-left-symbols">0</b></p>
+</body>
+
+<script>
+var TextCounter = {
+    maxChar: 140,
+    textArea: null,
+    textAreaTotal: null,
+    textAreaLeft: null,
+    
+    init: function() {
+        this.textArea = document.querySelector('#js-message');
+        this.textAreaTotal = document.querySelector('#js-message-left-total');
+        this.textAreaLeft = document.querySelector('#js-message-left-symbols');
+ 
+        this.events();
+    },
+    events: function() {
+		this.textArea.addEventListener('keyup', function() {
+			var count = this.value.length;
+			var rem = TextCounter.maxChar - count;
+			TextCounter.textAreaTotal.innerHTML = count;
+			TextCounter.textAreaLeft.innerHTML = rem;
+			return true;
+		});
+    }
+};
+
+TextCounter.init();
+</script>
+
+</html>

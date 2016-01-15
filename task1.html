@@ -4,13 +4,13 @@
 </head>
 
 <body>
-<textarea name="message" id="js-message" cols="30" rows="10" maxLength="140"></textarea>
+<textarea name="message" id="js-message" cols="30" rows="10"></textarea>
 <p>Symbols total: <b id="js-message-left-total">0</b>, left: <b id="js-message-left-symbols">0</b></p>
 </body>
 
 <script>
 var TextCounter = {
-    maxChar: 140,
+    maxChar: 40,
     textArea: null,
     textAreaTotal: null,
     textAreaLeft: null,
@@ -23,14 +23,23 @@ var TextCounter = {
         this.events();
     },
     events: function() {
-		this.textArea.addEventListener('keyup', function() {
-			var count = this.value.length;
-			var rem = TextCounter.maxChar - count;
+		this.textArea.addEventListener('keyup', this.calculate);
+    },
+	calculate: function(e) {
+		var count = this.value.length;
+		var rem = TextCounter.maxChar - count;
+		if (rem >= 0) {
 			TextCounter.textAreaTotal.innerHTML = count;
 			TextCounter.textAreaLeft.innerHTML = rem;
-			return true;
-		});
-    }
+		} else {
+			e = e || window.event;
+			e.preventDefault ? e.preventDefault() : (e.returnValue=false);
+			TextCounter.textAreaTotal.innerHTML = '<span style="color: #ff0000;">' + TextCounter.maxChar + ' (max char amount reached)</span>';
+			TextCounter.textAreaLeft.innerHTML = '<span style="color: #ff0000;">0</span>';
+			return false;
+		}
+		return true;
+	}
 };
 
 TextCounter.init();

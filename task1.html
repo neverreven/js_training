@@ -32,8 +32,10 @@ var TextCounter = {
 			TextCounter.textAreaTotal.innerHTML = count;
 			TextCounter.textAreaLeft.innerHTML = rem;
 		} else {
+			if (e == 'keydown' || e == 'keypressed') { e = keyup };
 			e = e || window.event;
 			e.preventDefault ? e.preventDefault() : (e.returnValue=false);
+			
 			TextCounter.textAreaTotal.innerHTML = '<span style="color: #ff0000;">' + TextCounter.maxChar + ' (max char amount reached)</span>';
 			TextCounter.textAreaLeft.innerHTML = '<span style="color: #ff0000;">0</span>';
 			return false;

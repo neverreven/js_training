@@ -10,10 +10,10 @@
 
 <script>
 var TextCounter = {
-    maxChar: 40,
-    textArea: null,
-    textAreaTotal: null,
-    textAreaLeft: null,
+	maxChar: 40,
+	textArea: null,
+	textAreaTotal: null,
+	textAreaLeft: null,
 	skipKeys: {
 		'LEFT': '37',
 		'TOP': '38',
@@ -21,22 +21,22 @@ var TextCounter = {
 		'BOTTOM': '40',
 		'BACKSPACE': '8',
 		'DELETE': '46'
-	},
-    
-    init: function() {
-        this.textArea = document.querySelector('#js-message');
-        this.textAreaTotal = document.querySelector('#js-message-left-total');
-        this.textAreaLeft = document.querySelector('#js-message-left-symbols');
- 
-        this.events();
+		},
+	
+	init: function() {
+		this.textArea = document.querySelector('#js-message');
+		this.textAreaTotal = document.querySelector('#js-message-left-total');
+		this.textAreaLeft = document.querySelector('#js-message-left-symbols');
+		
+		this.events();
 		
 		TextCounter.textAreaTotal.innerHTML = 0;
 		TextCounter.textAreaLeft.innerHTML = TextCounter.maxChar;
-    },
-    events: function() {
+	},
+	events: function() {
 		this.textArea.addEventListener('keyup', this.calculate);
 		this.textArea.addEventListener('keydown', this.cutoff);
-    },
+	},
 	calculate: function(e) {
 		var count = this.value.length;
 		var rem = TextCounter.maxChar - count;
@@ -55,11 +55,10 @@ var TextCounter = {
 		if (this.value.length >= TextCounter.maxChar) {
 			if (e.keyCode == TextCounter.skipKeys.LEFT || e.keyCode == TextCounter.skipKeys.TOP || e.keyCode == TextCounter.skipKeys.RIGHT || e.keyCode == TextCounter.skipKeys.BOTTOM || e.keyCode == TextCounter.skipKeys.BACKSPACE || e.keyCode == TextCounter.skipKeys.DELETE) {
 				e = e || window.event;
-				return false;
 			} else {
 				e.preventDefault ? e.preventDefault() : (e.returnValue = false);
-				return false;
 			}
+			return false;
 		}
 		return true;
 	}

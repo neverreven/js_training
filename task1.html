@@ -14,6 +14,14 @@ var TextCounter = {
     textArea: null,
     textAreaTotal: null,
     textAreaLeft: null,
+	skipKeys: {
+		'LEFT': '37',
+		'TOP': '38',
+		'RIGHT': '39',
+		'BOTTOM': '40',
+		'BACKSPACE': '8',
+		'DELETE': '46'
+	},
     
     init: function() {
         this.textArea = document.querySelector('#js-message');
@@ -44,17 +52,8 @@ var TextCounter = {
 		return true;
 	},
 	cutoff: function(e) {
-		var skipKeys = {
-			'LEFT': '37',
-			'TOP': '38',
-			'RIGHT': '39',
-			'BOTTOM': '40',
-			'BACKSPACE': '8',
-			'DELETE': '46'
-		};
-		
 		if (this.value.length >= TextCounter.maxChar) {
-			if (e.keyCode == skipKeys.LEFT || e.keyCode == skipKeys.TOP || e.keyCode == skipKeys.RIGHT || e.keyCode == skipKeys.BOTTOM || e.keyCode == skipKeys.BACKSPACE || e.keyCode == skipKeys.DELETE) {
+			if (e.keyCode == TextCounter.skipKeys.LEFT || e.keyCode == TextCounter.skipKeys.TOP || e.keyCode == TextCounter.skipKeys.RIGHT || e.keyCode == TextCounter.skipKeys.BOTTOM || e.keyCode == TextCounter.skipKeys.BACKSPACE || e.keyCode == TextCounter.skipKeys.DELETE) {
 				e = e || window.event;
 				return false;
 			} else {

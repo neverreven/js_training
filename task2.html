@@ -81,44 +81,38 @@
 				init: function() {
 					/* get elements*/
 					this.loader = document.getElementById('loader');
-					this.preogressBar = document.getElementById('loaderProgressBar');
+					this.progressBar = document.getElementById('loaderProgressBar');
 					this.loaderPercent = document.getElementById('loaderPercent');
 					this.images = document.getElementsByTagName('img');
 					this.imagesCount = this.images.length;
-					this.n = 100 / this.images.length;
-					/* add additional properties below if needed */
+					this.n = 100 / this.imagesCount;
+					this.pb = this.n;
 
 					this.events();
 				},
 				events: function() {
-					/*arr.forEach(function() {
-						this.textArea.addEventListener('load', this.loadImage);
-					});*/
-					
 					for (var i = 0; i < this.imagesCount; i++) {
 						this.images[i].addEventListener('load', this.loadImage.bind(this));
 						this.images[i].addEventListener('error', this.loadImage.bind(this));
 					}
 				},
 				loadImage: function() {
-					Loader.increaseProgressBar;
-					Loader.loadedCallback;
+					this.increaseProgressBar();
 				},
 				increaseProgressBar: function() {
 					// use this method to increase progress bar percentage and color filling
-					Loader.n += Loader.n;
-					Loader.progressBar.style.width = Loader.n + '%';
-					if (Math.round(Loader.n) >= 100) {
-						Loader.loaderPercent.innerHtml = '100%';
-						Loader.loadedCallback;
+					this.progressBar.style.width = this.pb + '%';
+					if (Math.round(this.pb) >= 100) {
+						this.loaderPercent.innerHTML = '100%';
+						this.loadedCallback();
 					} else {
-						Loader.loaderPercent.innerHtml = Math.round(Loader.n) + '%';
+						this.loaderPercent.innerHTML = Math.round(this.pb) + '%';
 					}
+					this.pb += this.n;
 				},
 				loadedCallback: function() {
 					// call this function once images will be loaded. Put code inside this method which will hide progress bar.
 					alert('loading complete.');
-					Loader.loader.style.display = 'none';
 				}
 			};
 		})();
